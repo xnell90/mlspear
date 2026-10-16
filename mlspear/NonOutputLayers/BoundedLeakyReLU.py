@@ -140,9 +140,10 @@ class BoundedLeakyReLU:
         self.Del_W = mu * self.Del_W + (-lr * (self.A).T).dot(D * self.derivative(self.H))
         self.Del_B = mu * self.Del_B + (-lr * row_sum(D * self.derivative(self.H)))
 
+        output = (D * (self.derivative(self.H))).dot((self.W).T)
         self.weight_update(l1, l2)
 
-        return (D * (self.derivative(self.H))).dot((self.W).T)
+        return output
 
     #Parameters:
     # D  = a numpy matrix that is produced by backpropagtion from the layer
@@ -171,9 +172,10 @@ class BoundedLeakyReLU:
         self.Del_W = mu * self.Del_W - lr_W * (((self.A).T).dot(D * self.derivative(self.H)))
         self.Del_B = mu * self.Del_B - lr_B * (row_sum(D * self.derivative(self.H)))
 
+        output = (D * self.derivative(self.H)).dot((self.W).T)
         self.weight_update(l1, l2)
 
-        return (D * self.derivative(self.H)).dot((self.W).T)
+        return output
 
     #Parameters:
     # D  = a numpy matrix that is produced by backpropagtion from the layer
@@ -204,9 +206,10 @@ class BoundedLeakyReLU:
         self.Del_W = mu * self.Del_W - lr_W * (((self.A).T).dot(D * self.derivative(self.H)))
         self.Del_B = mu * self.Del_B - lr_B * (row_sum(D * self.derivative(self.H)))
 
+        output = (D * self.derivative(self.H)).dot((self.W).T)
         self.weight_update(l1, l2)
 
-        return (D * self.derivative(self.H)).dot((self.W).T)
+        return output
 
     #Parameters:
     # D  = a numpy matrix that is produced by backpropagtion from the layer
@@ -247,9 +250,10 @@ class BoundedLeakyReLU:
         self.Del_W = mu * self.Del_W - Eta_W * M_W_hat
         self.Del_B = mu * self.Del_B - Eta_B * M_B_hat
 
+        output = (D * self.derivative(self.H)).dot((self.W).T)
         self.weight_update(l1, l2)
 
-        return (D * self.derivative(self.H)).dot((self.W).T)
+        return output
 
     #Returns:
     # a python dictionary that contains all parameters in this layer.

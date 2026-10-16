@@ -77,9 +77,11 @@ class BatchNormalization:
     # a backpropagated numpy matrix.
     def backward(self, D, lr, mtype, mu, l1, l2, e=1e-9):
         A_norm  = (self.A - self.mu) / np.sqrt((self.sigma ** 2) + e)
+
+        output = D * self.Gamma * (1 / np.sqrt((self.sigma ** 2) + e))
         self.weight_update(lr, A_norm, D)
 
-        return D * self.Gamma * (1 / np.sqrt((self.sigma ** 2) + e))
+        return output
 
     #Paramters:
     # D  = a numpy matrix that is produced by backpropagtion from the layer
